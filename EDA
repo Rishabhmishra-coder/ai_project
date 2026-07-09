@@ -1,0 +1,313 @@
+# ==== Cell 1 ====
+
+
+# ==== Cell 2 ====
+# Import Libraries
+import numpy as np
+import pandas as pd
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from scipy import stats
+
+import warnings
+warnings.filterwarnings('ignore')
+
+sns.set_style('whitegrid')
+plt.rcParams['figure.figsize'] = (10, 5)
+NETFLIX_RED = '#E50914'
+NETFLIX_BLACK = '#221f1f'
+
+
+# ==== Cell 3 ====
+# Load Dataset
+df = pd.read_csv('netflix_titles.csv')
+
+
+# ==== Cell 4 ====
+# Dataset First Look
+df.head()
+
+
+# ==== Cell 5 ====
+# Dataset Rows & Columns count
+print("Number of rows:", df.shape[0])
+print("Number of columns:", df.shape[1])
+
+
+# ==== Cell 6 ====
+# Dataset Info
+df.info()
+
+
+# ==== Cell 7 ====
+# Dataset Duplicate Value Count
+print("Fully duplicate rows:", df.duplicated().sum())
+print("Duplicate titles:", df['title'].duplicated().sum())
+print("Duplicate show_id:", df['show_id'].duplicated().sum())
+
+
+# ==== Cell 8 ====
+# Missing Values/Null Values Count
+missing = df.isnull().sum().sort_values(ascending=False)
+missing_pct = (missing / len(df) * 100).round(2)
+missing_df = pd.DataFrame({'missing_count': missing, 'missing_pct (%)': missing_pct})
+missing_df[missing_df.missing_count > 0]
+
+
+# ==== Cell 9 ====
+# Visualizing the missing values
+plt.figure(figsize=(10, 5))
+sns.heatmap(df.isnull(), cbar=False, cmap='rocket')
+plt.title('Missing Value Map')
+plt.show()
+
+
+# ==== Cell 10 ====
+# Dataset Columns
+df.columns.tolist()
+
+
+# ==== Cell 11 ====
+# Dataset Describe
+df.describe(include='all').T
+
+
+# ==== Cell 12 ====
+# Check Unique Values for each variable.
+for col in df.columns:
+    print(f"{col}: {df[col].nunique()} unique values")
+
+
+# ==== Cell 13 ====
+# Write your code to make your dataset analysis ready.
+
+def clean_data(data):
+    data = data.copy()
+    # Categorical/text columns: missing usually means "not credited", not an error -> fill 'Unknown'
+    for col in ['director', 'cast', 'country']:
+        data[col] = data[col].fillna('Unknown')
+        data[col] = data[col].replace('', 'Unknown')
+    # Rating: only 7 missing rows -> impute with the mode
+    data['rating'] = data['rating'].fillna(data['rating'].mode()[0])
+    # date_added: only 10 missing rows -> safe to drop
+    data = data.dropna(subset=['date_added'])
+    # Remove any exact duplicate rows
+    data = data.drop_duplicates()
+    return data.reset_index(drop=True)
+
+
+def engineer_features(data):
+    data = data.copy()
+    # Parse the date Netflix added the title
+    data['date_added_parsed'] = pd.to_datetime(data['date_added'].str.strip(), errors='coerce')
+    data['year_added'] = data['date_added_parsed'].dt.year
+    data['month_added'] = data['date_added_parsed'].dt.month
+
+    # Split the mixed-unit `duration` column into a type flag + numeric value
+    data['duration_type'] = np.where(data['duration'].str.contains('Season', case=False, na=False),
+                                      'Season(s)', 'Minutes')
+    data['duration_int'] = data['duration'].str.extract(r'(\d+)').astype(float)
+
+    # First-listed country / genre, useful for grouping and plotting
+    data['primary_country'] = data['country'].apply(lambda x: str(x).split(',')[0].strip())
+    data['primary_genre'] = data['listed_in'].apply(lambda x: str(x).split(',')[0].strip())
+
+    # How many years after release Netflix added the title (content "freshness"); clip negative
+    # values (a handful of data-entry quirks where release_year > year_added) at 0
+    data['content_age_at_add'] = (data['year_added'] - data['release_year']).clip(lower=0)
+
+    return data
+
+df = clean_data(df)
+df = engineer_features(df)
+print("Shape after cleaning + feature engineering:", df.shape)
+df[['title', 'duration_type', 'duration_int', 'primary_country', 'primary_genre', 'content_age_at_add']].head()
+
+
+# ==== Cell 14 ====
+# Chart - 1 visualization code
+type_counts = df['type'].value_counts()
+
+plt.figure(figsize=(6, 6))
+plt.pie(type_counts, labels=type_counts.index, autopct='%1.1f%%',
+        colors=[NETFLIX_RED, NETFLIX_BLACK], explode=(0.03, 0.03), startangle=90)
+plt.title('Share of Content: Movies vs TV Shows')
+plt.show()
+print(type_counts)
+
+
+# ==== Cell 15 ====
+# Chart - 2 visualization code
+trend = df.groupby(['year_added', 'type']).size().unstack(fill_value=0)
+
+trend.plot(kind='line', marker='o', color=[NETFLIX_RED, NETFLIX_BLACK], figsize=(10, 5))
+plt.title('Titles Added to Netflix Per Year, by Type')
+plt.ylabel('Number of Titles Added')
+plt.xlabel('Year Added')
+plt.show()
+
+tv_share = (trend['TV Show'] / (trend['Movie'] + trend['TV Show'])).round(3)
+print("TV Show share of additions by year:\n", tv_share)
+
+
+# ==== Cell 16 ====
+# Chart - 3 visualization code
+country_series = df['country'].str.split(',').explode().str.strip()
+top_countries = country_series[~country_series.isin(['', 'Unknown'])].value_counts().head(10)
+
+plt.figure(figsize=(10, 6))
+sns.barplot(x=top_countries.values, y=top_countries.index, palette='Reds_r')
+plt.title('Top 10 Countries Producing Netflix Content')
+plt.xlabel('Number of Titles')
+plt.show()
+print(top_countries)
+
+
+# ==== Cell 17 ====
+# Chart - 4 visualization code
+genre_series = df['listed_in'].str.split(',').explode().str.strip()
+top_genres = genre_series.value_counts().head(15)
+
+plt.figure(figsize=(10, 6))
+sns.barplot(x=top_genres.values, y=top_genres.index, palette='mako')
+plt.title('Top 15 Genres on Netflix')
+plt.xlabel('Number of Titles')
+plt.show()
+print(top_genres)
+
+
+# ==== Cell 18 ====
+# Chart - 5 visualization code
+plt.figure(figsize=(10, 5))
+order = df['rating'].value_counts().index
+sns.countplot(data=df, y='rating', order=order, palette='rocket')
+plt.title('Distribution of Content Ratings')
+plt.xlabel('Number of Titles')
+plt.show()
+print(df['rating'].value_counts())
+
+
+# ==== Cell 19 ====
+# Chart - 6 visualization code
+movie_durations = df[df['type'] == 'Movie']['duration_int'].dropna()
+
+plt.figure(figsize=(9, 5))
+sns.histplot(movie_durations, bins=30, color=NETFLIX_RED, kde=True)
+plt.title('Distribution of Movie Duration (minutes)')
+plt.xlabel('Duration (minutes)')
+plt.show()
+print(movie_durations.describe())
+
+
+# ==== Cell 20 ====
+# Chart - 7 visualization code
+tv_seasons = df[df['type'] == 'TV Show']['duration_int'].dropna()
+
+plt.figure(figsize=(9, 5))
+sns.countplot(x=tv_seasons, color=NETFLIX_BLACK)
+plt.title('Number of Seasons per TV Show')
+plt.xlabel('Seasons')
+plt.show()
+print(tv_seasons.value_counts().sort_index())
+
+
+# ==== Cell 21 ====
+# Chart - 8 visualization code
+top_directors = df[df['director'] != 'Unknown']['director'].value_counts().head(10)
+
+plt.figure(figsize=(10, 6))
+sns.barplot(x=top_directors.values, y=top_directors.index, palette='Reds_r')
+plt.title('Top 10 Directors by Number of Titles on Netflix')
+plt.xlabel('Number of Titles')
+plt.show()
+print(top_directors)
+
+
+# ==== Cell 22 ====
+# Chart - 9 visualization code
+cast_series = df[df['cast'] != 'Unknown']['cast'].str.split(',').explode().str.strip()
+top_cast = cast_series.value_counts().head(10)
+
+plt.figure(figsize=(10, 6))
+sns.barplot(x=top_cast.values, y=top_cast.index, palette='mako')
+plt.title('Top 10 Most Frequently Credited Cast Members')
+plt.xlabel('Number of Titles')
+plt.show()
+print(top_cast)
+
+
+# ==== Cell 23 ====
+# Chart - 10 visualization code
+plt.figure(figsize=(9, 5))
+sns.histplot(df['release_year'], bins=30, color=NETFLIX_RED)
+plt.title('Distribution of Release Year')
+plt.xlabel('Release Year')
+plt.show()
+print(df['release_year'].describe())
+
+
+# ==== Cell 24 ====
+# Chart - 11 visualization code
+month_counts = df['month_added'].value_counts().sort_index()
+month_names = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
+
+plt.figure(figsize=(10, 5))
+sns.barplot(x=[month_names[int(m)-1] for m in month_counts.index], y=month_counts.values, color=NETFLIX_RED)
+plt.title('Titles Added to Netflix by Month (All Years Combined)')
+plt.ylabel('Number of Titles Added')
+plt.show()
+print(month_counts)
+
+
+# ==== Cell 25 ====
+# Chart - 12 visualization code
+top5_countries = df['primary_country'].value_counts().head(5).index
+subset = df[df['primary_country'].isin(top5_countries)]
+ct = pd.crosstab(subset['primary_country'], subset['type'], normalize='index')
+
+ct.plot(kind='bar', stacked=True, color=[NETFLIX_RED, NETFLIX_BLACK], figsize=(9, 5))
+plt.title('Movie vs TV Show Mix in Top 5 Countries')
+plt.ylabel('Proportion of Titles')
+plt.xticks(rotation=0)
+plt.show()
+print(ct.round(3))
+
+
+# ==== Cell 26 ====
+# Chart - 13 visualization code
+rating_type = pd.crosstab(df['rating'], df['type'])
+
+rating_type.plot(kind='bar', color=[NETFLIX_RED, NETFLIX_BLACK], figsize=(11, 5))
+plt.title('Content Rating by Type (Movie vs TV Show)')
+plt.ylabel('Number of Titles')
+plt.xticks(rotation=45)
+plt.show()
+print(rating_type)
+
+
+# ==== Cell 27 ====
+# Correlation Heatmap visualization code
+numeric_cols = ['release_year', 'year_added', 'month_added', 'duration_int', 'content_age_at_add']
+corr = df[numeric_cols].corr()
+
+plt.figure(figsize=(8, 6))
+sns.heatmap(corr, annot=True, cmap='RdBu_r', center=0, vmin=-1, vmax=1)
+plt.title('Correlation Heatmap of Numeric Features')
+plt.show()
+
+
+# ==== Cell 28 ====
+# Pair Plot visualization code
+sample_df = df[numeric_cols + ['type']].dropna().sample(n=min(1000, len(df)), random_state=42)
+
+sns.pairplot(sample_df, hue='type', palette=[NETFLIX_RED, NETFLIX_BLACK], diag_kind='hist', plot_kws={'alpha': 0.5, 's': 15})
+plt.suptitle('Pair Plot of Numeric Features by Content Type', y=1.02)
+plt.show()
+
+
+# ==== Cell 29 ====
+
+
+# ==== Cell 30 ====
