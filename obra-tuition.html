@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Misra Classes Obra — Oldest Tuition Brand</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --saffron: #f77f00;
+  --deep: #0a0a1a;
+  --gold: #ffd700;
+  --red: #c0392b;
+  --light: #fffdf5;
+  --accent: #1a237e;
+  --green: #1b5e20;
+}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Poppins',sans-serif;background:var(--deep);color:#fff;overflow-x:hidden;cursor:none;}
+
+/* CUSTOM CURSOR */
+.cursor{position:fixed;width:12px;height:12px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s;}
+.cursor-ring{position:fixed;width:36px;height:36px;border:2px solid var(--saffron);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s ease;opacity:.6;}
+
+/* STARS BG */
+.stars{position:fixed;inset:0;pointer-events:none;z-index:0;}
+.star{position:absolute;border-radius:50%;background:#fff;animation:twinkle 3s infinite;}
+@keyframes twinkle{0%,100%{opacity:.2;transform:scale(1);}50%{opacity:1;transform:scale(1.4);}}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:1rem 5vw;background:rgba(10,10,26,.92);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,215,0,.15);}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--gold);letter-spacing:.02em;}
+.nav-logo span{color:var(--saffron);}
+.nav-links{display:flex;gap:2rem;list-style:none;}
+.nav-links a{text-decoration:none;color:rgba(255,255,255,.7);font-size:.85rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;transition:color .2s;}
+.nav-links a:hover{color:var(--gold);}
+.nav-enroll{background:linear-gradient(135deg,var(--saffron),var(--gold));color:#000;padding:.55rem 1.4rem;border-radius:30px;font-size:.82rem;font-weight:700;text-decoration:none;letter-spacing:.04em;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(247,127,0,.4);}
+.nav-enroll:hover{transform:translateY(-2px) scale(1.04);box-shadow:0 8px 30px rgba(247,127,0,.6);}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 5vw 80px;overflow:hidden;z-index:1;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(247,127,0,.18) 0%,rgba(26,35,126,.1) 50%,transparent 70%);pointer-events:none;}
+.hero-ring{position:absolute;border-radius:50%;border:1px solid rgba(255,215,0,.08);pointer-events:none;}
+.hero-ring:nth-child(1){width:600px;height:600px;top:50%;left:50%;transform:translate(-50%,-50%);animation:rotate 30s linear infinite;}
+.hero-ring:nth-child(2){width:900px;height:900px;top:50%;left:50%;transform:translate(-50%,-50%);animation:rotate 45s linear infinite reverse;}
+.hero-ring:nth-child(3){width:1200px;height:1200px;top:50%;left:50%;transform:translate(-50%,-50%);animation:rotate 60s linear infinite;}
+@keyframes rotate{from{transform:translate(-50%,-50%) rotate(0deg);}to{transform:translate(-50%,-50%) rotate(360deg);}}
+
+.badge-oldest{display:inline-flex;align-items:center;gap:.5rem;background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.35);padding:.4rem 1.2rem;border-radius:30px;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:1.6rem;animation:fadeUp .7s ease both;}
+.badge-oldest::before{content:'🏆';}
+
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.8rem,7vw,5.5rem);line-height:1.05;letter-spacing:-.02em;animation:fadeUp .7s .1s ease both;}
+.hero h1 .line1{display:block;color:#fff;}
+.hero h1 .line2{display:block;color:var(--saffron);font-style:italic;}
+.hero h1 .line3{display:block;font-size:clamp(1.6rem,4vw,3rem);color:var(--gold);letter-spacing:.04em;margin-top:.2rem;}
+
+.hero-sub{font-size:1.05rem;color:rgba(255,255,255,.65);max-width:560px;margin:1.4rem auto 2.2rem;line-height:1.8;animation:fadeUp .7s .2s ease both;}
+
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeUp .7s .3s ease both;}
+.btn-glow{background:linear-gradient(135deg,var(--saffron),#e64d00);color:#fff;padding:1rem 2.4rem;border-radius:50px;font-size:1rem;font-weight:700;text-decoration:none;box-shadow:0 0 30px rgba(247,127,0,.5);transition:all .2s;letter-spacing:.04em;}
+.btn-glow:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 0 50px rgba(247,127,0,.8);}
+.btn-outline{background:transparent;color:var(--gold);padding:1rem 2.4rem;border-radius:50px;font-size:1rem;font-weight:600;text-decoration:none;border:1.5px solid rgba(255,215,0,.5);transition:all .2s;}
+.btn-outline:hover{background:rgba(255,215,0,.08);border-color:var(--gold);transform:translateY(-2px);}
+
+/* FLOATING BADGES */
+.float-badge{position:absolute;background:rgba(10,10,26,.85);border:1px solid rgba(255,215,0,.25);border-radius:14px;padding:.7rem 1rem;backdrop-filter:blur(10px);animation:float 4s ease-in-out infinite;}
+.float-badge:nth-child(1){top:20%;left:5%;animation-delay:0s;}
+.float-badge:nth-child(2){top:25%;right:5%;animation-delay:1.5s;}
+.float-badge:nth-child(3){bottom:25%;left:8%;animation-delay:3s;}
+.float-badge:nth-child(4){bottom:20%;right:8%;animation-delay:.8s;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-12px);}}
+.float-badge .fb-num{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);line-height:1;}
+.float-badge .fb-label{font-size:.7rem;color:rgba(255,255,255,.5);margin-top:.1rem;}
+
+/* MARQUEE */
+.marquee-wrap{background:linear-gradient(135deg,var(--saffron),#e64d00);padding:.7rem 0;overflow:hidden;white-space:nowrap;position:relative;z-index:1;}
+.marquee-inner{display:inline-flex;gap:3rem;animation:marquee 18s linear infinite;}
+.marquee-inner span{font-size:.85rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#fff;}
+.marquee-inner .dot{color:rgba(255,255,255,.5);}
+@keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+/* SECTIONS GENERAL */
+.section{padding:100px 5vw;position:relative;z-index:1;}
+.section-label{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--saffron);margin-bottom:.7rem;}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);line-height:1.2;letter-spacing:-.02em;}
+.section-title .gold{color:var(--gold);}
+.section-sub{margin-top:.8rem;font-size:.95rem;color:rgba(255,255,255,.5);max-width:500px;line-height:1.8;}
+
+/* TEACHER SECTION */
+.teacher-section{background:linear-gradient(135deg,rgba(26,35,126,.15) 0%,rgba(10,10,26,1) 60%);}
+.teacher-wrap{display:grid;grid-template-columns:1fr 1.4fr;gap:5rem;align-items:center;margin-top:4rem;}
+.teacher-visual{position:relative;}
+.teacher-frame{width:100%;max-width:380px;aspect-ratio:3/4;background:linear-gradient(135deg,rgba(247,127,0,.15),rgba(255,215,0,.08));border-radius:30px;border:1px solid rgba(255,215,0,.2);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+.teacher-frame::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 30%,rgba(247,127,0,.2),transparent 60%);}
+.teacher-initials{font-family:'Playfair Display',serif;font-size:8rem;color:rgba(255,215,0,.15);font-weight:900;position:absolute;}
+.teacher-icon{font-size:6rem;position:relative;z-index:1;}
+.teacher-name-card{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--saffron),#e64d00);padding:1rem 2rem;border-radius:14px;text-align:center;white-space:nowrap;box-shadow:0 8px 30px rgba(247,127,0,.4);}
+.teacher-name-card h3{font-family:'Playfair Display',serif;font-size:1.3rem;color:#fff;letter-spacing:.02em;}
+.teacher-name-card p{font-size:.75rem;color:rgba(255,255,255,.8);margin-top:.2rem;font-weight:500;}
+
+.exp-badge{position:absolute;top:-15px;right:-15px;width:90px;height:90px;background:var(--gold);border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 0 30px rgba(255,215,0,.5);}
+.exp-badge .num{font-family:'Playfair Display',serif;font-size:1.8rem;color:#000;line-height:1;font-weight:900;}
+.exp-badge .txt{font-size:.55rem;font-weight:700;color:#333;text-align:center;line-height:1.2;text-transform:uppercase;}
+
+.teacher-content h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);line-height:1.2;margin-bottom:1.2rem;}
+.teacher-content h2 em{font-style:italic;color:var(--gold);}
+.teacher-desc{font-size:.93rem;color:rgba(255,255,255,.65);line-height:1.9;margin-bottom:1.8rem;}
+.skill-pills{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2rem;}
+.pill{background:rgba(255,215,0,.08);border:1px solid rgba(255,215,0,.2);padding:.4rem 1rem;border-radius:20px;font-size:.78rem;font-weight:600;color:var(--gold);}
+
+.contact-box{background:rgba(255,255,255,.04);border:1px solid rgba(255,215,0,.15);border-radius:16px;padding:1.4rem 1.8rem;display:flex;align-items:center;gap:1.2rem;}
+.contact-icon{font-size:2rem;}
+.contact-label{font-size:.75rem;color:rgba(255,255,255,.4);font-weight:500;text-transform:uppercase;letter-spacing:.08em;}
+.contact-num{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);letter-spacing:.04em;}
+
+/* SUBJECTS */
+.subjects-section{background:rgba(255,255,255,.02);}
+.subjects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1.5rem;margin-top:3rem;}
+.subj-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:2rem;transition:all .25s;position:relative;overflow:hidden;cursor:pointer;}
+.subj-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(247,127,0,0),rgba(247,127,0,.06));opacity:0;transition:opacity .3s;}
+.subj-card:hover{transform:translateY(-6px);border-color:rgba(247,127,0,.3);box-shadow:0 12px 40px rgba(247,127,0,.15);}
+.subj-card:hover::before{opacity:1;}
+.subj-icon{font-size:2.2rem;margin-bottom:1rem;}
+.subj-card h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:#fff;margin-bottom:.4rem;}
+.subj-card p{font-size:.82rem;color:rgba(255,255,255,.4);line-height:1.6;}
+.subj-tag{display:inline-block;margin-top:.8rem;background:rgba(247,127,0,.15);color:var(--saffron);font-size:.7rem;font-weight:700;padding:.25rem .7rem;border-radius:20px;letter-spacing:.05em;}
+.subj-tag.demand{background:rgba(255,215,0,.1);color:var(--gold);}
+
+/* CLASSES / LEVELS */
+.levels-section{text-align:center;}
+.levels-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:3rem;max-width:800px;margin-left:auto;margin-right:auto;}
+.level-card{background:linear-gradient(135deg,rgba(247,127,0,.1),rgba(26,35,126,.1));border:1px solid rgba(255,215,0,.2);border-radius:24px;padding:2.5rem 1.5rem;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s;}
+.level-card:hover{transform:scale(1.04);box-shadow:0 16px 50px rgba(247,127,0,.2);}
+.level-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--saffron),var(--gold));}
+.level-num{font-family:'Playfair Display',serif;font-size:4rem;font-weight:900;color:rgba(255,215,0,.12);line-height:1;position:absolute;top:10px;right:15px;}
+.level-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);margin-bottom:.4rem;position:relative;}
+.level-sub{font-size:.82rem;color:rgba(255,255,255,.45);line-height:1.6;position:relative;}
+
+/* WHY */
+.why-section{background:linear-gradient(135deg,rgba(192,57,43,.08),rgba(10,10,26,1));}
+.why-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem;margin-top:3rem;}
+.why-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:1.8rem;transition:all .2s;}
+.why-card:hover{background:rgba(255,255,255,.06);border-color:rgba(247,127,0,.25);transform:translateY(-3px);}
+.why-num{font-family:'Playfair Display',serif;font-size:3rem;color:rgba(255,215,0,.12);line-height:1;margin-bottom:.6rem;}
+.why-card h3{font-size:1rem;font-weight:700;color:#fff;margin-bottom:.4rem;}
+.why-card p{font-size:.82rem;color:rgba(255,255,255,.4);line-height:1.7;}
+
+/* ENROLLMENT SECTION */
+.enroll-section{background:linear-gradient(135deg,rgba(26,35,126,.2),rgba(10,10,26,1));}
+.enroll-wrap{display:grid;grid-template-columns:1fr 1.3fr;gap:5rem;align-items:start;margin-top:3rem;}
+.enroll-left h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);line-height:1.2;margin-bottom:1rem;}
+.enroll-left h2 em{color:var(--gold);font-style:italic;}
+.enroll-left p{font-size:.9rem;color:rgba(255,255,255,.5);line-height:1.8;margin-bottom:2rem;}
+.enroll-steps{display:flex;flex-direction:column;gap:1.2rem;}
+.step{display:flex;gap:1rem;align-items:flex-start;}
+.step-num{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--saffron),var(--gold));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.85rem;color:#000;flex-shrink:0;}
+.step h4{font-size:.9rem;font-weight:700;color:#fff;margin-bottom:.2rem;}
+.step p{font-size:.8rem;color:rgba(255,255,255,.4);line-height:1.5;}
+
+/* FORM */
+.enroll-form{background:rgba(255,255,255,.04);border:1px solid rgba(255,215,0,.15);border-radius:24px;padding:2.5rem;position:relative;overflow:hidden;}
+.enroll-form::before{content:'';position:absolute;top:-60px;right:-60px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(247,127,0,.1),transparent 70%);pointer-events:none;}
+.form-title{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold);margin-bottom:.3rem;}
+.form-sub{font-size:.8rem;color:rgba(255,255,255,.4);margin-bottom:1.8rem;}
+
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.form-group{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1rem;}
+.form-group label{font-size:.78rem;font-weight:600;color:rgba(255,255,255,.6);letter-spacing:.05em;text-transform:uppercase;}
+.form-group input,.form-group select,.form-group textarea{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:.8rem 1rem;color:#fff;font-family:'Poppins',sans-serif;font-size:.88rem;transition:border-color .2s,background .2s;outline:none;}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(255,255,255,.25);}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--saffron);background:rgba(247,127,0,.05);}
+.form-group select option{background:#1a1a2e;color:#fff;}
+.form-group textarea{resize:vertical;min-height:80px;}
+
+.submit-btn{width:100%;padding:1rem;background:linear-gradient(135deg,var(--saffron),#e64d00);border:none;border-radius:12px;color:#fff;font-family:'Poppins',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.06em;cursor:pointer;transition:all .2s;box-shadow:0 4px 25px rgba(247,127,0,.35);position:relative;overflow:hidden;}
+.submit-btn::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.1),transparent);opacity:0;transition:opacity .2s;}
+.submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 35px rgba(247,127,0,.55);}
+.submit-btn:hover::after{opacity:1;}
+.submit-btn:active{transform:translateY(0);}
+
+/* SUCCESS TOAST */
+.toast{position:fixed;bottom:2rem;right:2rem;background:linear-gradient(135deg,#1b5e20,#2e7d32);border:1px solid rgba(76,175,80,.4);border-radius:16px;padding:1.2rem 1.6rem;color:#fff;font-size:.88rem;font-weight:500;z-index:9000;transform:translateY(100px);opacity:0;transition:all .4s cubic-bezier(.34,1.56,.64,1);max-width:320px;box-shadow:0 8px 30px rgba(0,0,0,.3);}
+.toast.show{transform:translateY(0);opacity:1;}
+.toast .toast-title{font-weight:700;font-size:.95rem;color:#a5d6a7;margin-bottom:.2rem;}
+
+/* DATABASE */
+.db-section{background:rgba(255,255,255,.02);padding:80px 5vw;}
+.db-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;margin-bottom:1.5rem;}
+.db-count{background:rgba(247,127,0,.1);border:1px solid rgba(247,127,0,.25);padding:.4rem 1rem;border-radius:20px;font-size:.82rem;font-weight:600;color:var(--saffron);}
+.db-table-wrap{overflow-x:auto;border-radius:16px;border:1px solid rgba(255,255,255,.07);}
+table{width:100%;border-collapse:collapse;}
+thead th{background:rgba(247,127,0,.12);padding:1rem;text-align:left;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--saffron);border-bottom:1px solid rgba(255,255,255,.07);}
+tbody tr{border-bottom:1px solid rgba(255,255,255,.04);transition:background .15s;}
+tbody tr:hover{background:rgba(255,255,255,.03);}
+tbody td{padding:.85rem 1rem;font-size:.83rem;color:rgba(255,255,255,.7);}
+.td-class{display:inline-block;background:rgba(247,127,0,.15);color:var(--saffron);padding:.2rem .7rem;border-radius:10px;font-size:.75rem;font-weight:600;}
+.td-subj{display:inline-block;background:rgba(255,215,0,.1);color:var(--gold);padding:.2rem .7rem;border-radius:10px;font-size:.72rem;}
+.empty-state{text-align:center;padding:3rem;color:rgba(255,255,255,.25);font-size:.9rem;}
+.td-date{font-size:.75rem;color:rgba(255,255,255,.35);}
+
+/* FOOTER */
+footer{background:#000;padding:60px 5vw 30px;border-top:1px solid rgba(255,215,0,.08);}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:4rem;margin-bottom:3rem;}
+.footer-brand .logo{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--gold);display:block;margin-bottom:.8rem;}
+.footer-brand .logo span{color:var(--saffron);}
+.footer-brand p{font-size:.83rem;color:rgba(255,255,255,.35);line-height:1.8;max-width:280px;}
+footer h4{color:#fff;font-size:.8rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem;}
+footer ul{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+footer ul li a{text-decoration:none;color:rgba(255,255,255,.35);font-size:.82rem;transition:color .2s;}
+footer ul li a:hover{color:var(--gold);}
+.footer-bottom{padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.06);display:flex;justify-content:space-between;font-size:.75rem;color:rgba(255,255,255,.25);}
+
+/* SCROLL REVEAL */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+/* ANIMATIONS */
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .teacher-wrap,.enroll-wrap,.footer-grid{grid-template-columns:1fr;}
+  .levels-grid{grid-template-columns:1fr;}
+  .float-badge{display:none;}
+  .form-row{grid-template-columns:1fr;}
+}
+@media(max-width:600px){
+  .nav-links{display:none;}
+  .hero h1{font-size:2.4rem;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- STARS -->
+<div class="stars" id="stars"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Misra <span>Classes</span></div>
+  <ul class="nav-links">
+    <li><a href="#teacher">Our Teacher</a></li>
+    <li><a href="#subjects">Subjects</a></li>
+    <li><a href="#classes">Classes</a></li>
+    <li><a href="#enroll">Enroll</a></li>
+    <li><a href="#database">Students</a></li>
+  </ul>
+  <a href="#enroll" class="nav-enroll">🎓 Enroll Now</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-ring"></div>
+  <div class="hero-ring"></div>
+
+  <div class="float-badge">
+    <div class="fb-num">25+</div>
+    <div class="fb-label">Years Teaching</div>
+  </div>
+  <div class="float-badge">
+    <div class="fb-num">98%</div>
+    <div class="fb-label">Pass Rate</div>
+  </div>
+  <div class="float-badge">
+    <div class="fb-num">VIII–X</div>
+    <div class="fb-label">Classes Offered</div>
+  </div>
+  <div class="float-badge">
+    <div class="fb-num">#1</div>
+    <div class="fb-label">Brand in Obra</div>
+  </div>
+
+  <div style="position:relative;z-index:2;">
+    <div class="badge-oldest">Obra's Oldest & Most Trusted Tuition Brand</div>
+    <h1>
+      <span class="line1">Excellence in</span>
+      <span class="line2">Education</span>
+      <span class="line3">— Misra Classes, Obra —</span>
+    </h1>
+    <p class="hero-sub">Shaping bright futures since decades. Expert coaching for Class VIII, IX & X under the legendary guidance of <strong style="color:var(--gold)">Sh. Sushil Misra</strong> — 25 years of transforming students into toppers.</p>
+    <div class="hero-btns">
+      <a href="#enroll" class="btn-glow">🚀 Enroll Today — Free!</a>
+      <a href="#teacher" class="btn-outline">Meet the Teacher →</a>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-inner">
+    <span>🏆 Obra's Oldest Tuition Brand</span><span class="dot">•</span>
+    <span>📚 Class VIII · IX · X</span><span class="dot">•</span>
+    <span>🔢 Mathematics · Science · More</span><span class="dot">•</span>
+    <span>⭐ 25 Years of Excellence</span><span class="dot">•</span>
+    <span>🎯 Proven Results Every Year</span><span class="dot">•</span>
+    <span>📞 Call Now: +91-XXXXXXXXXX</span><span class="dot">•</span>
+    <span>🏆 Obra's Oldest Tuition Brand</span><span class="dot">•</span>
+    <span>📚 Class VIII · IX · X</span><span class="dot">•</span>
+    <span>🔢 Mathematics · Science · More</span><span class="dot">•</span>
+    <span>⭐ 25 Years of Excellence</span><span class="dot">•</span>
+    <span>🎯 Proven Results Every Year</span><span class="dot">•</span>
+    <span>📞 Call Now: +91-XXXXXXXXXX</span><span class="dot">•</span>
+  </div>
+</div>
+
+<!-- TEACHER -->
+<section class="section teacher-section" id="teacher">
+  <div class="teacher-wrap">
+    <div class="teacher-visual reveal">
+      <div class="teacher-frame">
+        <div class="teacher-initials">SM</div>
+        <div class="teacher-icon">👨‍🏫</div>
+      </div>
+      <div class="teacher-name-card">
+        <h3>Sh. Sushil Misra</h3>
+        <p>Founder & Head Teacher · Misra Classes</p>
+      </div>
+      <div class="exp-badge">
+        <div class="num">25</div>
+        <div class="txt">Years Exp.</div>
+      </div>
+    </div>
+
+    <div class="teacher-content reveal" style="transition-delay:.15s">
+      <div class="section-label">The Master Educator</div>
+      <h2>Teaching is not a<br><em>profession — it's a calling.</em></h2>
+      <p class="teacher-desc">
+        Sh. Sushil Misra is the heart and soul of Misra Classes — Obra's oldest and most celebrated tuition institution. With over <strong style="color:#fff">25 years of dedicated teaching experience</strong>, he has mentored thousands of students from Class VIII to X, helping them achieve outstanding results in board examinations and beyond.
+        <br><br>
+        Known for his unique <strong style="color:#fff">FALL Technique</strong> — a revolutionary teaching methodology that makes complex concepts simple, relatable, and unforgettable — Sir Misra's classes are an experience in themselves. His deep subject knowledge, patient guidance, and student-first approach have made him a legend in Obra and surrounding areas.
+      </p>
+      <div class="skill-pills">
+        <span class="pill">🎯 FALL Technique</span>
+        <span class="pill">📖 25+ Years Experience</span>
+        <span class="pill">🏆 Topper Maker</span>
+        <span class="pill">🔢 Mathematics Expert</span>
+        <span class="pill">🔬 Science Specialist</span>
+        <span class="pill">❤️ Student-First Approach</span>
+      </div>
+      <div class="contact-box">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label">Call / WhatsApp</div>
+          <div class="contact-num">+91-XXXXXXXXXX</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUBJECTS -->
+<section class="section subjects-section" id="subjects">
+  <div style="text-align:center;">
+    <div class="section-label">What We Teach</div>
+    <h2 class="section-title">Subjects We <span class="gold">Excel In</span></h2>
+    <p class="section-sub" style="margin:0 auto;">Core subjects with full curriculum coverage plus additional subjects available on student demand.</p>
+  </div>
+  <div class="subjects-grid" style="margin-top:3.5rem;">
+    <div class="subj-card reveal">
+      <div class="subj-icon">🔢</div>
+      <h3>Mathematics</h3>
+      <p>Complete NCERT syllabus with extra practice problems, shortcut techniques, and exam-ready strategies.</p>
+      <span class="subj-tag">Core Subject</span>
+    </div>
+    <div class="subj-card reveal" style="transition-delay:.08s">
+      <div class="subj-icon">🔬</div>
+      <h3>Science</h3>
+      <p>Physics, Chemistry & Biology — concept-first teaching with diagrams, experiments & board exam focus.</p>
+      <span class="subj-tag">Core Subject</span>
+    </div>
+    <div class="subj-card reveal" style="transition-delay:.16s">
+      <div class="subj-icon">📜</div>
+      <h3>Social Science</h3>
+      <p>History, Geography, Civics & Economics taught with memory techniques and answer-writing skills.</p>
+      <span class="subj-tag demand">On Demand</span>
+    </div>
+    <div class="subj-card reveal" style="transition-delay:.24s">
+      <div class="subj-icon">🔤</div>
+      <h3>English</h3>
+      <p>Grammar, comprehension, writing skills and literature — building communication confidence.</p>
+      <span class="subj-tag demand">On Demand</span>
+    </div>
+    <div class="subj-card reveal" style="transition-delay:.32s">
+      <div class="subj-icon">📝</div>
+      <h3>Hindi</h3>
+      <p>Full grammar, prose, poetry, and essay writing aligned to CBSE/Board exam patterns.</p>
+      <span class="subj-tag demand">On Demand</span>
+    </div>
+    <div class="subj-card reveal" style="transition-delay:.4s">
+      <div class="subj-icon">🌟</div>
+      <h3>Other Subjects</h3>
+      <p>Sanskrit, Computer Science, and additional subjects available based on student requirements and demand.</p>
+      <span class="subj-tag demand">On Demand</span>
+    </div>
+  </div>
+</section>
+
+<!-- CLASSES -->
+<section class="section levels-section" id="classes">
+  <div class="section-label">Classes Offered</div>
+  <h2 class="section-title">From <span class="gold">Class VIII to X</span></h2>
+  <p class="section-sub" style="margin:0 auto 1rem;">Three crucial years that define a student's academic foundation. We cover all three.</p>
+  <div class="levels-grid">
+    <div class="level-card reveal">
+      <div class="level-num">8</div>
+      <div class="level-title">Class VIII</div>
+      <div class="level-sub">Building the fundamentals. Concept clarity, habit formation, and academic confidence for the journey ahead.</div>
+    </div>
+    <div class="level-card reveal" style="transition-delay:.12s">
+      <div class="level-num">9</div>
+      <div class="level-title">Class IX</div>
+      <div class="level-sub">The bridge year. Strengthening foundations and preparing rigorously for the critical Class X examinations.</div>
+    </div>
+    <div class="level-card reveal" style="transition-delay:.24s">
+      <div class="level-num">10</div>
+      <div class="level-title">Class X</div>
+      <div class="level-sub">Board exam mastery. Intensive revision, mock tests, and exam strategies to achieve top scores and distinctions.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY CHOOSE US -->
+<section class="section why-section">
+  <div class="section-label">Why Misra Classes?</div>
+  <h2 class="section-title">Obra Trusts Us.<br><span class="gold">Since Decades.</span></h2>
+  <div class="why-grid">
+    <div class="why-card reveal">
+      <div class="why-num">01</div>
+      <h3>🏆 Obra's Oldest Tuition Brand</h3>
+      <p>Decades of legacy. The name Misra Classes is synonymous with quality education in Obra and surrounding regions.</p>
+    </div>
+    <div class="why-card reveal" style="transition-delay:.1s">
+      <div class="why-num">02</div>
+      <h3>🎯 The FALL Technique</h3>
+      <p>Sh. Sushil Misra's exclusive teaching methodology makes even the most difficult topics easy, memorable, and exam-ready.</p>
+    </div>
+    <div class="why-card reveal" style="transition-delay:.2s">
+      <div class="why-num">03</div>
+      <h3>👨‍🏫 25 Years of Mastery</h3>
+      <p>Experience that no book can teach. Knowing exactly where students struggle and exactly how to fix it.</p>
+    </div>
+    <div class="why-card reveal" style="transition-delay:.3s">
+      <div class="why-num">04</div>
+      <h3>📊 Proven Board Results</h3>
+      <p>Year after year, Misra Classes students consistently top district merit lists and achieve distinction grades.</p>
+    </div>
+    <div class="why-card reveal" style="transition-delay:.4s">
+      <div class="why-num">05</div>
+      <h3>📚 Small Batch Attention</h3>
+      <p>Limited seats per batch ensure personal attention, regular doubt-clearing sessions, and individual progress tracking.</p>
+    </div>
+    <div class="why-card reveal" style="transition-delay:.5s">
+      <div class="why-num">06</div>
+      <h3>💬 Parent Connect</h3>
+      <p>Regular parent communication ensures every family stays informed about their child's progress and improvement areas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ENROLLMENT SECTION -->
+<section class="section enroll-section" id="enroll">
+  <div class="enroll-wrap">
+    <div class="enroll-left reveal">
+      <div class="section-label">Join Misra Classes</div>
+      <h2>Secure Your Child's<br><em>Future Today.</em></h2>
+      <p>Enrollment is simple, quick, and completely free. Fill the form and Sh. Sushil Misra will personally connect with you to confirm your seat. Seats are limited — don't miss out!</p>
+      <div class="enroll-steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div>
+            <h4>Fill the Enrollment Form</h4>
+            <p>Enter your child's details, class, and preferred subjects. Takes less than 2 minutes.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div>
+            <h4>Receive Confirmation Call</h4>
+            <p>Sh. Sushil Misra or his team will call you within 24 hours to confirm your seat.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div>
+            <h4>Start Learning</h4>
+            <p>Join the batch and begin your journey to academic excellence under expert guidance.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="enroll-form reveal" style="transition-delay:.2s" id="enrollForm">
+      <div class="form-title">📋 Enrollment Form</div>
+      <div class="form-sub">All fields marked are required. Your data is safe with us.</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Student's Full Name *</label>
+          <input type="text" id="f-name" placeholder="e.g. Rahul Kumar" required>
+        </div>
+        <div class="form-group">
+          <label>Date of Birth</label>
+          <input type="date" id="f-dob">
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Class *</label>
+          <select id="f-class" required>
+            <option value="">Select Class</option>
+            <option value="VIII">Class VIII</option>
+            <option value="IX">Class IX</option>
+            <option value="X">Class X</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>School Name</label>
+          <input type="text" id="f-school" placeholder="e.g. St. Joseph's School">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Subjects Required *</label>
+        <select id="f-subject" required>
+          <option value="">Select Primary Subject</option>
+          <option value="Mathematics">Mathematics</option>
+          <option value="Science">Science</option>
+          <option value="Mathematics + Science">Mathematics + Science</option>
+          <option value="Social Science">Social Science</option>
+          <option value="English">English</option>
+          <option value="Hindi">Hindi</option>
+          <option value="All Core Subjects">All Core Subjects</option>
+          <option value="Other (On Demand)">Other (On Demand)</option>
+        </select>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Parent/Guardian Name *</label>
+          <input type="text" id="f-parent" placeholder="Father/Mother Name" required>
+        </div>
+        <div class="form-group">
+          <label>Contact Number *</label>
+          <input type="tel" id="f-phone" placeholder="+91 XXXXX XXXXX" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Address / Area in Obra</label>
+        <input type="text" id="f-address" placeholder="e.g. Near Main Market, Obra">
+      </div>
+
+      <div class="form-group">
+        <label>Any Special Message</label>
+        <textarea id="f-message" placeholder="e.g. My child needs extra help in Algebra..."></textarea>
+      </div>
+
+      <button class="submit-btn" onclick="submitEnrollment()">🎓 Submit Enrollment — Join Misra Classes</button>
+    </div>
+  </div>
+</section>
+
+<!-- DATABASE SECTION -->
+<section class="db-section" id="database">
+  <div class="db-header">
+    <div>
+      <div class="section-label">Live Student Records</div>
+      <h2 class="section-title" style="font-size:1.8rem;">Enrolled <span class="gold">Students</span></h2>
+    </div>
+    <div class="db-count" id="dbCount">0 Students Enrolled</div>
+  </div>
+  <div class="db-table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Student Name</th>
+          <th>Class</th>
+          <th>Subject(s)</th>
+          <th>Parent Name</th>
+          <th>Phone</th>
+          <th>Area</th>
+          <th>Enrolled On</th>
+        </tr>
+      </thead>
+      <tbody id="dbBody">
+        <tr><td colspan="8" class="empty-state">No enrollments yet. Be the first to join Misra Classes! 🎓</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <span class="logo">Misra <span>Classes</span></span>
+      <p>Obra's oldest and most trusted tuition brand. Shaping bright minds for decades under the legendary guidance of Sh. Sushil Misra.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#teacher">Our Teacher</a></li>
+        <li><a href="#subjects">Subjects</a></li>
+        <li><a href="#classes">Classes VIII–X</a></li>
+        <li><a href="#enroll">Enroll Now</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">📍 Obra, Sonbhadra, U.P.</a></li>
+        <li><a href="#">📞 +91-XXXXXXXXXX</a></li>
+        <li><a href="#">👤 Sh. Sushil Misra</a></li>
+        <li><a href="#">⏰ Mon–Sat, 7AM–8PM</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Misra Classes, Obra. All Rights Reserved.</span>
+    <span>Obra's Oldest Tuition Brand 🏆</span>
+  </div>
+</footer>
+
+<!-- TOAST -->
+<div class="toast" id="toast">
+  <div class="toast-title">✅ Enrollment Successful!</div>
+  <div id="toastMsg">Your enrollment has been submitted. Sh. Sushil Misra will contact you soon!</div>
+</div>
+
+<script>
+// CURSOR
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+  ring.style.left = e.clientX + 'px';
+  ring.style.top = e.clientY + 'px';
+});
+document.querySelectorAll('a,button,input,select,textarea').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%,-50%) scale(2)'; ring.style.transform = 'translate(-50%,-50%) scale(1.4)'; ring.style.borderColor = 'var(--gold)'; });
+  el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.borderColor = 'var(--saffron)'; });
+});
+
+// STARS
+const starsEl = document.getElementById('stars');
+for (let i = 0; i < 120; i++) {
+  const s = document.createElement('div');
+  s.classList.add('star');
+  const size = Math.random() * 2.5 + 0.5;
+  s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*4}s;animation-duration:${2+Math.random()*3}s;`;
+  starsEl.appendChild(s);
+}
+
+// SCROLL REVEAL
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.12 });
+revealEls.forEach(el => observer.observe(el));
+
+// STORAGE KEY
+const DB_KEY = 'misra_classes_obra_students';
+
+function getStudents() {
+  try { return JSON.parse(localStorage.getItem(DB_KEY)) || []; } catch { return []; }
+}
+function saveStudents(arr) {
+  localStorage.setItem(DB_KEY, JSON.stringify(arr));
+}
+
+function renderDB() {
+  const students = getStudents();
+  const body = document.getElementById('dbBody');
+  const count = document.getElementById('dbCount');
+  count.textContent = `${students.length} Student${students.length !== 1 ? 's' : ''} Enrolled`;
+  if (!students.length) {
+    body.innerHTML = '<tr><td colspan="8" class="empty-state">No enrollments yet. Be the first to join Misra Classes! 🎓</td></tr>';
+    return;
+  }
+  body.innerHTML = students.map((s, i) => `
+    <tr>
+      <td style="color:rgba(255,255,255,.3)">${i+1}</td>
+      <td style="font-weight:600;color:#fff">${s.name}</td>
+      <td><span class="td-class">${s.className}</span></td>
+      <td><span class="td-subj">${s.subject}</span></td>
+      <td>${s.parent}</td>
+      <td>${s.phone}</td>
+      <td style="color:rgba(255,255,255,.4)">${s.address || '—'}</td>
+      <td class="td-date">${s.date}</td>
+    </tr>
+  `).join('');
+}
+
+function submitEnrollment() {
+  const name = document.getElementById('f-name').value.trim();
+  const className = document.getElementById('f-class').value;
+  const subject = document.getElementById('f-subject').value;
+  const parent = document.getElementById('f-parent').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const address = document.getElementById('f-address').value.trim();
+  const dob = document.getElementById('f-dob').value;
+  const school = document.getElementById('f-school').value.trim();
+  const message = document.getElementById('f-message').value.trim();
+
+  if (!name) { alert('Please enter the student\'s full name.'); return; }
+  if (!className) { alert('Please select the class.'); return; }
+  if (!subject) { alert('Please select a subject.'); return; }
+  if (!parent) { alert('Please enter parent/guardian name.'); return; }
+  if (!phone) { alert('Please enter contact number.'); return; }
+
+  const students = getStudents();
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' });
+
+  students.unshift({ name, className, subject, parent, phone, address, dob, school, message, date: dateStr, id: Date.now() });
+  saveStudents(students);
+  renderDB();
+
+  // Clear form
+  ['f-name','f-dob','f-school','f-parent','f-phone','f-address','f-message'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('f-class').value = '';
+  document.getElementById('f-subject').value = '';
+
+  // Show toast
+  const toast = document.getElementById('toast');
+  document.getElementById('toastMsg').textContent = `Welcome, ${name}! Your enrollment for Class ${className} is confirmed. Sh. Sushil Misra will call you at ${phone} soon.`;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 5000);
+
+  // Scroll to DB
+  setTimeout(() => document.getElementById('database').scrollIntoView({ behavior:'smooth' }), 600);
+}
+
+// Init
+renderDB();
+</script>
+</body>
+</html>
